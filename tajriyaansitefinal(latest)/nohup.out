@@ -1,0 +1,4 @@
+[2023-04-28 22:19:02 +0200] [50029] [INFO] Starting gunicorn 20.1.0
+[2023-04-28 22:19:02 +0200] [50029] [INFO] Listening at: http://0.0.0.0:8000 (50029)
+[2023-04-28 22:19:02 +0200] [50029] [INFO] Using worker: sync
+[2023-04-28 22:19:02 +0200] [50031] [INFO] Booting worker with pid: 50031

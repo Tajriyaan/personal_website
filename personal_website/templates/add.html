@@ -131,41 +131,41 @@
                     <div class="form-kerri contact_form">
 
                         <!-- Start Form Entry for Blog Post -->
+<form name="addFor" id="addForm" method="POST" action="{{url_for('addpost')}}" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group mt-2">
+                <label>Title</label>
+                <input type="text" class="form-control" placeholder="Title" name="title" id='title' aria-label="Title of Blog">
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group mt-2">
+                <label>Author</label>
+                <input type="text" class="form-control" name="author" id="author" placeholder="Author">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group mt-2">
+            <label>Blog Content</label>
+            <textarea class="form-control" rows="10" name="content" id="content" placeholder="Content" aria-label="Content"><pre></pre></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group mt-2">
+            <label>Upload Image</label>
+            <input type="file" class="form-control" name="image" id="image" accept="image/*" aria-label="Upload Image">
+            <!-- <input type="file" class="form-control" name="image_locaation" id="image" accept="image/*" aria-label="Upload Image"> -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 text-end mt-2">
+            <button type="submit" class="btn btn-custom text-uppercase" id="Send">Add Blog Post</button>
+        </div>
+    </div>
+</form>
 
-                        <form name="addFor" id="addForm" method="POST" action="{{url_for('addpost')}}" enctype="multipart/form-data">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group mt-2">
-                                        <label>Title</label>
-                                        <input type="text" class="form-control" placeholder="Title" name="title" id='title' aria-label="Title of Blog">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group mt-2">
-                                        <label>Author</label>
-                                        <input type="text" class="form-control" name="author" id="author" placeholder="Author">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group mt-2">
-                                    <label>Blog Content</label>
-                                    <textarea class="form-control" rows="10" name="content" id="content" placeholder="Content" aria-label="Content"></textarea>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group mt-2">
-                                    <label>Upload Image</label>
-                                    <input type="file" class="form-control" name="image" id="image" accept="image/*" aria-label="Upload Image">
-                                    <!-- <input type="file" class="form-control" name="image_locaation" id="image" accept="image/*" aria-label="Upload Image"> -->
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 text-end mt-2">
-                                    <button type="submit" class="btn btn-custom text-uppercase" id="Send">Add Blog Post</button>
-                                </div>
-                            </div>
-                        </form>
                         
                         <!-- End Form -->
                     </div>

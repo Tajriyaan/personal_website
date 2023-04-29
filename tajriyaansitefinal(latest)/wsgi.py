@@ -7,3 +7,6 @@ sys.path.insert(0, app_dir)
 
 # Import your Flask app object
 from app import app as app
+
+if __name__ == "__main__":
+    app.run()

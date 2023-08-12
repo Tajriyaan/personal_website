@@ -160,8 +160,10 @@
                             <div class="row">
                                 <div class="form-group mt-2">
                                     <label>Upload Image</label>
-                                    <input type="file" class="form-control" name="image" id="image" accept="image/*"
-                                        aria-label="Upload Image">
+                                    <!-- <input type="file" class="form-control" name="image" id="image" accept="image/*"
+                                        aria-label="Upload Image"> -->
+                                    <input type="file" class="form-control" name="image" id="image" accept="image/*" aria-label="Upload Image" multiple>
+
                                     <!-- <input type="file" class="form-control" name="image_locaation" id="image" accept="image/*" aria-label="Upload Image"> -->
                                 </div>
                             </div>
@@ -259,15 +261,7 @@
 
     <!-- Custom Js -->
     <script src={{url_for( 'static' , filename="js/custom.js" )}}></script>
-    <script>
-        var typed = new Typed('.element', {
-            strings: ["Tajriyaan Chowdhury.", "A Data Professional.", "Always an Avid Learner.", "Sometimes A Philosopher.", "Mostly a Foodie.",],
-            typeSpeed: 120,
-            backSpeed: 60,
-            backDelay: 3000,
-            loop: true
-        });
-    </script>
+
 </body>
 
 <!-- Mirrored from kerrilive.netlify.app/light/index_7.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 29 Jul 2022 08:39:48 GMT -->

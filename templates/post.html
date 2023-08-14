@@ -77,7 +77,7 @@
                         <a class="nav-link" href="/#portfolio">Portfolio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#blog">Blog</a>
+                        <a class="nav-link" href="/posts">Blog</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/#contact">Contact</a>
@@ -88,67 +88,15 @@
     </nav>
     <!-- End Navbar -->
 
-    <!-- START HOME -->
-    <!-- <section class="section header-bg-img h-100vh align-items-center d-flex clip-home" id="blog">
-        <div class="bg-overlay">
-            <img src="{{url_for('static',filename = 'images/blog/blog-1.jpg')}}" , alt=""
-                class="h-100vh  align-items-center d-flex clip-home">
-        </div>
-        <div class="container z-index">
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="text-center header-content mx-auto">
-                        <h1 class="text-white first-title text-white text-capitalize mb-0">{{post.title}}</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-    <!-- END HOME -->
-
-
-    <!-- START BLOG -->
-    <!-- <section class="section" id="blog">
-        <div class="container">
-            <div class="row mt-5">
-                <a href="{{ url_for('posts', id=post.id) }}">
-                    <div class="col-lg-12 mt-5">
-                        <div class="rounded bg-white mx-auto shadow m-3 p-3">
-                            <div class="img_blog mx-auto m-2 p-2">
-                                <img src="{{ url_for('static', filename=post.image.replace('static/', '')) }}"
-                                    alt="{{ post.title }}" class="vw-40 rounded-start float-right mx-auto d-block"
-                                    style="max-width: 50%; max-height: 60%">
-                            </div>
-                            <div class="content_blog p-3">
-                                <div>
-                                    <h2 class="text-success fw-bold mb-0">{{ post.title }}</h2>
-                                </div>
-                                <p class="h6 text-secondary date_blog mb-0"> Posted By {{ post.author }}</p>
-                                <p class="h6 text-dark date_blog mb-0 "> {{ post.date_posted.strftime(' %B %d, %Y') }}
-                                </p>
-                                <hr>
-                                <div class="mt-3 desc_blog text-muted" style="white-space: pre-wrap;">{{
-                                    post.content|safe }}</div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-   END BLOG -->
 
    
 <!-- START BLOG -->
-<section class="section" id="blog">
+<!-- <section class="section" id="blog">
     <div class="container">
         <div class="row mt-5">
             <a href="{{ url_for('posts', id=post.id) }}">
                 <div class="col-lg-12 mt-5">
                     <div class="rounded bg-white mx-auto shadow m-3 p-3">
-                        <div class="img_blog mx-auto m-2 p-2">
-                            <div id="imageContainer"></div> <!-- Container for images -->
-                        </div>
                         <div class="content_blog p-3">
                             <div>
                                 <h2 class="text-success fw-bold mb-0">{{ post.title }}</h2>
@@ -159,6 +107,81 @@
                             <hr>
                             <div class="mt-3 desc_blog text-muted" style="white-space: pre-wrap;">{{
                                 post.content|safe }}</div>
+                                <div class="img_blog mx-auto m-2 p-2">
+                                    <div id="imageContainer"></div>
+                                     <!-- Container for images -->
+                                <!-- </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>  -->
+<!-- END BLOG -->
+
+<!-- START BLOG -->
+<!-- <section class="section" id="blog">
+    <div class="container">
+        <div class="row mt-5">
+            <a href="{{ url_for('posts', id=post.id) }}">
+                <div class="col-lg-12 mt-5">
+                    <div class="rounded bg-white mx-auto shadow m-3 p-3">
+                        <div class="content_blog p-3">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div>
+                                        <h2 class="text-success fw-bold mb-0">{{ post.title }}</h2>
+                                    </div>
+                                    <p class="h6 text-secondary date_blog mb-0"> Posted By {{ post.author }}</p>
+                                    <p class="h6 text-dark date_blog mb-0 "> {{ post.date_posted.strftime(' %B %d, %Y') }}
+                                    </p>
+                                    <hr>
+                                    <div class="mt-3 desc_blog text-muted" style="white-space: pre-wrap;">{{
+                                        post.content|safe }}</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="img_blog mx-auto m-2 p-2">
+                                        <div id="imageContainer"></div>Container for images -->
+                                    <!-- </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div> -->
+</section>
+<!-- END BLOG -->
+
+
+<!-- START BLOG -->
+<section class="section" id="blog">
+    <div class="container">
+        <div class="row mt-5">
+            <a href="{{ url_for('posts', id=post.id) }}">
+                <div class="col-lg-12 mt-5">
+                    <div class="rounded bg-white mx-auto shadow m-3 p-3">
+                        <div class="content_blog p-3">
+                            <div class="row">
+                                <div class="col-md-8 col-sm-12 mb-3 mb-md-0"> <!-- Adjust column sizes for different screen sizes -->
+                                    <div>
+                                        <h2 class="text-success fw-bold mb-0">{{ post.title }}</h2>
+                                    </div>
+                                    <p class="h6 text-secondary date_blog mb-0"> Posted By {{ post.author }}</p>
+                                    <p class="h6 text-dark date_blog mb-0 "> {{ post.date_posted.strftime(' %B %d, %Y') }}
+                                    </p>
+                                    <hr>
+                                    <div class="mt-3 desc_blog text-muted" style="white-space: pre-wrap;">{{
+                                        post.content|safe }}</div>
+                                </div>
+                                <div class="col-md-4 col-sm-12"> <!-- Adjust column sizes for different screen sizes -->
+                                    <div class="img_blog mx-auto m-2 p-2">
+                                        <div id="imageContainer"></div><!-- Container for images -->
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -200,36 +223,6 @@
     <!-- Back To Top -->
     <a href="#" class="back_top"> <i class="mdi mdi-chevron-up"> </i> </a>
 
-    <!-- START SWITCHER -->
-    <!-- <div id="color-switcher" style="left: 0px;">
-        <div>
-            <h3 class="fw-bold text-center">Select your color</h3>
-            <ul class="pattern">
-                <li>
-                    <a class="color1" href="#"></a>
-                </li>
-                <li>
-                    <a class="color2" href="#"></a>
-                </li>
-                <li>
-                    <a class="color3" href="#"></a>
-                </li>
-                <li>
-                    <a class="color4" href="#"></a>
-                </li>
-                <li>
-                    <a class="color5" href="#"></a>
-                </li>
-                <li>
-                    <a class="color6" href="#"></a>
-                </li>
-            </ul>
-        </div>
-        <div class="bottom">
-            <a href="#" class="settings rounded-right"><i class="mdi mdi-settings mdi-spin"></i></a>
-        </div>
-    </div> -->
-    <!-- END SWITCHER -->
 
 
     <!--All Javascript -->
@@ -254,69 +247,8 @@
     <!-- Custom Js -->
     <script src={{url_for( 'static' , filename="js/custom.js" )}}></script>
 
-    <!-- JavaScript code to handle the image paths -->
-    <!-- <script>
-        // Decode the URL-encoded JSON data
-        var encodedJsonData = '{{ post.image|tojson|safe }}';
-        console.log('Encoded JSON data:', encodedJsonData);
-    
-        // Decode the URL-encoded JSON data and parse it
-        try {
-            var imagePaths = JSON.parse(decodeURIComponent(encodedJsonData));
-    
-            // Get the container element
-            var imageContainer = document.getElementById("imageContainer");
-    
-            // Loop through the image paths and create <img> elements
-            for (var i = 0; i < imagePaths.length; i++) {
-                var imgElement = document.createElement("img");
-                imgElement.src = imagePaths[i];  // Set the image source
-                imgElement.alt = "{{ post.title }}";  // Set the alt attribute
-                imgElement.className = "vw-40 rounded-start float-right mx-auto d-block";
-                imgElement.style.maxWidth = "50%";
-                imgElement.style.maxHeight = "60%";
-    
-                // Append the <img> element to the container
-                imageContainer.appendChild(imgElement);
-            }
-        } catch (error) {
-            console.error('Error parsing JSON:', error);
-        }
-    </script> -->
    
 <!-- 
-    <script>
-        // Decode the URL-encoded JSON data
-        var encodedJsonData = '{{ post.image|safe }}';
-    
-        // Decode the URL-encoded JSON data
-        var decodedJsonData = decodeURIComponent(encodedJsonData);
-    
-        // Split the JSON array string into an array
-        var imagePaths = JSON.parse(decodedJsonData);
-        console.log(imagePaths)
-    
-        // Get the container element
-        var imageContainer = document.getElementById("imageContainer");
-    
-        // Loop through the image paths and create <img> elements
-        for (var i = 0; i < imagePaths.length; i++) {
-            var imgElement = document.createElement("img");
-    
-            imgElement.src = imagePaths[i].replace('/', '/');
-    
-            imgElement.alt = "{{ post.title }}";  // Set the alt attribute
-            imgElement.className = "vw-40 rounded-start float-right mx-auto d-block";
-            imgElement.style.maxWidth = "50%";
-            imgElement.style.maxHeight = "60%";
-            
-    
-            // Append the <img> element to the container
-            imageContainer.appendChild(imgElement);
-            console.log(imgElement);
-        }
-    </script> -->
-
     <script>
         // Decode the URL-encoded JSON data
         var encodedJsonData = '{{ post.image|safe }}';
@@ -341,8 +273,41 @@
             imgElement.src = imageUrl.replace('/static', '/');
             imgElement.alt = "{{ post.title }}";  // Set the alt attribute
             imgElement.className = "vw-40 rounded-start float-right mx-auto d-block";
-            imgElement.style.maxWidth = "50%";
-            imgElement.style.maxHeight = "60%";
+            imgElement.style.maxWidth = "30%";
+            imgElement.style.maxHeight = "30%";
+    
+            // Append the <img> element to the container
+            imageContainer.appendChild(imgElement);
+            console.log(imgElement);
+        }
+    </script> -->
+    
+    <script>
+        // Decode the URL-encoded JSON data
+        var encodedJsonData = '{{ post.image|safe }}';
+    
+        // Decode the URL-encoded JSON data
+        var decodedJsonData = decodeURIComponent(encodedJsonData);
+    
+        // Split the JSON array string into an array
+        var imagePaths = JSON.parse(decodedJsonData);
+        console.log(imagePaths)
+    
+        // Get the container element
+        var imageContainer = document.getElementById("imageContainer");
+    
+        // Loop through the image paths and create <img> elements
+        for (var i = 0; i < imagePaths.length; i++) {
+            var imgElement = document.createElement("img");
+    
+            // Construct the image URL dynamically using url_for
+            var imageUrl = '{{ url_for("static", filename="")[:-1] }}' + imagePaths[i];
+    
+            imgElement.src = imageUrl.replace('/static', '/');
+            imgElement.alt = "{{ post.title }}";  // Set the alt attribute
+            imgElement.className = "img-fluid rounded-start mb-3"; // Use Bootstrap img-fluid class for responsiveness
+            imgElement.style.width = "100%"; // Adjust image width
+            imgElement.style.height = "auto"; // Allow height to adjust proportionally
     
             // Append the <img> element to the container
             imageContainer.appendChild(imgElement);
@@ -350,7 +315,6 @@
         }
     </script>
     
-
     
     
     

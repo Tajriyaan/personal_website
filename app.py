@@ -1,87 +1,43 @@
-# Importing flask module in the project is mandatory
-from flask import Flask, render_template, request, redirect, url_for,flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 import os
-import sqlite3
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.sql import func
+import pymysql.cursors
+import json
 from datetime import datetime
 from flask_mail import Mail, Message
-from config import mail_username, mail_password,upload_folder,secret_key
+from config import mail_username, mail_password, upload_folder, secret_key,db_username
 from werkzeug.utils import secure_filename
-from sqlalchemy.exc import IntegrityError
-import json
-
-
 
 UPLOAD_FOLDER = upload_folder
 
-
-# Flask constructor takes the name of
-# current module (__name__) as argument.
 app = Flask(__name__, static_folder='static')
-
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = secret_key
 
-# get the path to the project directory
-project_dir = os.path.dirname(os.path.abspath(__file__))
+db_config = {
+    "host": "103.169.160.17",
+    "user": db_username,
+    "password": "asoijv#2314",
+    "db": "blog",
+    "port": 3306,
+    "cursorclass": pymysql.cursors.DictCursor
+}
 
-# set the path to the database file
-database_dir = os.path.join(project_dir, "database")
-if not os.path.exists(database_dir):
-    os.makedirs(database_dir)
-
-database_file = "sqlite:///{}".format(os.path.join(database_dir, "blog.db"))
-
-# check if blog.db exists, otherwise create it
-if os.path.exists(os.path.join(database_dir, "blog.db")):
-    print('Database Found!')
-else:
-    conn = sqlite3.connect(os.path.join(database_dir, "blog.db"))
-    conn.close()
-    print('Database Created! \n')
-
-app.config['SQLALCHEMY_DATABASE_URI'] = database_file
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db = SQLAlchemy(app)
-
-
-# Database model
-class Blogpost(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), unique=True, nullable=False)
-    content = db.Column(db.Text, nullable=False)
-    author = db.Column(db.String(20), nullable=False)
-    image = db.Column(db.String(10000), nullable=True, default='default.jpg')
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'))
-    # date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-
-    def __repr__(self):
-        return f"Blogpost('{self.title}', '{self.author}', '{self.date_posted}')"
-
-with app.app_context():
-    # Create the database
-    db.create_all()
-
-
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-
-app.config['MAIL_USERNAME'] = mail_username
-app.config['MAIL_PASSWORD'] = mail_password
+db_connection = pymysql.connect(**db_config)
 
 mail = Mail(app)
 
-    
-# Main site
+class Blogpost:
+    def __init__(self, title, content, author, image, date_posted):
+        self.title = title
+        self.content = content
+        self.author = author
+        self.image = image
+        self.date_posted = date_posted
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
 
-# Add blog post to database
 @app.route('/addpost', methods=['GET', 'POST'])
 def addpost():
     if request.method == 'POST':
@@ -101,76 +57,78 @@ def addpost():
                 filepaths.append('')
             print("filepaths:", filepaths)
 
-        # Serialize the list of image paths to a JSON string
         image_json = json.dumps(filepaths)
 
-        # Create new blog post object
-        post = Blogpost(title=title, author=author,
-                        content=content, image=image_json, date_posted=datetime.utcnow())
+        with db_connection.cursor() as cursor:
+            sql = "INSERT INTO blogpost (title, author, content, image, date_posted) VALUES (%s, %s, %s, %s, %s)"
+            cursor.execute(sql, (title, author, content, image_json, datetime.utcnow()))
+            db_connection.commit()
 
-        # Add post to database
-        db.session.add(post)
-        db.session.commit()
-
-        # Show success message
         flash('Blog post added successfully', 'success')
-
         return redirect(url_for('posts'))
 
     return render_template('posts.html')
 
 
+@app.route('/edit/posts/<int:id>', methods=['GET', 'POST'])
+def edit(id):
+    with db_connection.cursor() as cursor:
+        sql = "SELECT * FROM blogpost WHERE id = %s"
+        cursor.execute(sql, (id,))
+        post = cursor.fetchone()
 
-# Add blog post to database
-# @app.route('/addpost', methods=['GET', 'POST'])
-# def addpost():
-#     if request.method == 'POST':
-#         title = request.form['title']
-#         author = request.form['author']
-#         content = request.form['content']
-#         file = request.files.get('image')
-        
-#         # Check if file was uploaded
-#         filename = ''
-#         if file:
-#             try:
-#                 # Get secure filename
-#                 filename = secure_filename(file.filename)
-#                 # Save file to UPLOAD_FOLDER directory
-#                 file.save(os.path.join(app.root_path, UPLOAD_FOLDER, filename))
-#                 # Set file path
-#                 filepath = os.path.join(UPLOAD_FOLDER, filename)
-#             except Exception as e:
-#                 # Catch any exceptions that may occur during file upload
-#                 print(f"Error uploading file: {e}")
-#                 filepath = ''
-#         else:
-#             # No file uploaded, set filepath to empty string
-#             filepath = ''
+        if request.method == 'POST':
+            post["title"] = request.form['title']
+            post["author"] = request.form['author']
+            post["content"] = request.form['content']
 
-#         print(f"filename: {filename}")
-#         print(f"filepath: {filepath}")
+            # Clear existing images and start with an empty list
+            post_images = []
 
-#         # Create new blog post object
-#         post = Blogpost(title=title, author=author,
-#                         content=content, image=filepath, date_posted=datetime.utcnow())
+            # Process the uploaded images
+            new_images = request.files.getlist('images')
+            for new_image in new_images:
+                if new_image:
+                    filename = secure_filename(new_image.filename)
+                    new_image.save(os.path.join(app.root_path, UPLOAD_FOLDER, filename))
+                    post_images.append(os.path.join(UPLOAD_FOLDER, filename))
 
-#         # Add post to database
-#         db.session.add(post)
-#         db.session.commit()
+            # Convert the list of images to a JSON string
+            post["image"] = json.dumps(post_images)
 
-#         # Show success message
-#         flash('Blog post added successfully', 'success')
-        
-#         return redirect(url_for('posts'))
+            sql = "UPDATE blogpost SET title = %s, author = %s, content = %s, image = %s WHERE id = %s"
+            cursor.execute(sql, (post["title"], post["author"], post["content"], post["image"], id))
+            db_connection.commit()
 
-#     return render_template('posts.html')
+            flash('Blog post updated successfully', 'success')
+            return redirect(url_for('posts'))
+
+    return render_template('edit.html', post=post)
 
 
 
-# Send Email Successfully
 
-# Send mail
+# @app.route('/edit/posts/<int:id>', methods=['GET', 'POST'])
+# def edit(id):
+#     with db_connection.cursor() as cursor:
+#         sql = "SELECT * FROM blogpost WHERE id = %s"
+#         cursor.execute(sql, (id,))
+#         post = cursor.fetchone()
+
+#         if request.method == 'POST':
+#             post["title"] = request.form['title']
+#             post["author"] = request.form['author']
+#             post["content"] = request.form['content']
+
+#             sql = "UPDATE blogpost SET title = %s, author = %s, content = %s WHERE id = %s"
+#             cursor.execute(sql, (post["title"], post["author"], post["content"], id))
+#             db_connection.commit()
+
+#             flash('Blog post updated successfully', 'success')
+#             return redirect(url_for('posts'))
+
+#     return render_template('edit.html', post=post)
+
 @app.route('/send_mail', methods=['GET', 'POST'])
 def send_mail():
     if request.method == "POST":
@@ -190,33 +148,28 @@ def send_mail():
 
 @app.route('/posts')
 def posts():
-    posts = Blogpost.query.order_by(Blogpost.date_posted.desc()).all()
-    for post in posts:
-        post.image = json.loads(post.image)
-        print(post.image)
+    with db_connection.cursor() as cursor:
+        sql = "SELECT * FROM blogpost ORDER BY date_posted DESC"
+        cursor.execute(sql)
+        posts = cursor.fetchall()
+
+        for post in posts:
+            try:
+                post["image"] = json.loads(post["image"])
+            except json.JSONDecodeError as e:
+                print(f"Error decoding JSON: {e}")
+                post["image"] = []
+
     return render_template('posts.html', posts=posts)
-
-    # Get flash message, if any
-    message = None
-    if 'message' in session:
-        message = session['message']
-        session.pop('message', None)
-
-    return render_template('posts.html', posts=posts, message=message)
-
-
-# Show Particular post
-
 
 @app.route('/posts/<int:id>')
 def post(id):
-
-    post = Blogpost.query.get_or_404(id)
+    with db_connection.cursor() as cursor:
+        sql = "SELECT * FROM blogpost WHERE id = %s"
+        cursor.execute(sql, (id,))
+        post = cursor.fetchone()
 
     return render_template('post.html', post=post)
-
-# Add blog post
-
 
 @app.route('/add')
 def add():
@@ -224,10 +177,25 @@ def add():
 
 
 
+# Delete blog post API
+@app.route('/delete/posts/<int:id>', methods=['GET', 'DELETE'])
+def delete_post(id):
+    with db_connection.cursor() as cursor:
+        # Get the post details before deleting
+        sql_select = "SELECT * FROM blogpost WHERE id = %s"
+        cursor.execute(sql_select, (id,))
+        post = cursor.fetchone()
 
+        # Delete the post
+        sql_delete = "DELETE FROM blogpost WHERE id = %s"
+        cursor.execute(sql_delete, (id,))
+        db_connection.commit()
 
-# main driver function
-   # run() method of Flask class runs the application
-    # on the local development server.
+    # Flash a message indicating successful deletion
+    flash('Blog post deleted successfully', 'success')
+
+    # Redirect back to the posts page after deletion
+    return redirect(url_for('posts'))
+
 if __name__ == '__main__':
-    app.run(host="0.0.0.0",debug=True)
+    app.run(host="0.0.0.0", debug=True)

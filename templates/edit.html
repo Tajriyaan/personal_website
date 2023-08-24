@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Edit Blog Post</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title:</label>
+            <input type="text" class="form-control" name="title" value="{{ post.title }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="author" class="form-label">Author:</label>
+            <input type="text" class="form-control" name="author" value="{{ post.author }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">Content:</label>
+            <textarea class="form-control" name="content" rows="10" required>{{ post.content }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="images" class="form-label">New Images:</label>
+            <input type="file" class="form-control" name="images" multiple>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
+
+<!-- Empty container to create space -->
+<div style="height: 50px;"></div> <!-- Empty div for spacing -->
+
+
+{% endblock %}

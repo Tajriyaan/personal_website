@@ -1,6 +1,94 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
 
-{% block content %}
+<!-- Mirrored from kerrilive.netlify.app/light/index_7.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 29 Jul 2022 08:39:32 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Tajriyaan Chowdhury | Portfolio </title>
+    <meta name="description" content="Tajriyaan Chowdhury Personal Website" />
+    <meta name="keywords" content="Data Science, Internet of Things,Portfolio" />
+    <meta name="robots" content="index,follow">
+    <meta name="author" content="Tajriyaan Chowdhury" />
+
+    <link rel="shortcut icon" href={{url_for( 'static' , filename="images/favicon.png" )}}>
+
+    <!-- Bootstrap Css -->
+    <link rel="stylesheet" type="text/css" href={{url_for( 'static' , filename='css/bootstrap.min.css' ) }}>
+
+    <!-- Materialdesign icons Css -->
+    <link rel="stylesheet" type="text/css" href={{url_for( 'static' , filename="css/materialdesignicons.min.css" )}}>
+
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" type="text/css" href={{url_for( 'static' , filename="css/owl.carousel.min.css" )}}>
+
+    <!-- Animate Css -->
+    <link rel="stylesheet" type="text/css" href={{url_for( 'static' , filename="css/animate.min.css" )}}>
+
+    <!-- Magnific-popup -->
+    <link rel="stylesheet" type="text/css" href={{url_for( 'static' , filename="css/magnific-popup.css" )}}>
+
+    <!-- Mobirise icons Css -->
+    <link rel="stylesheet" type="text/css" href={{url_for( 'static' , filename="css/mobiriseicons.css" )}}>
+
+    <!-- Custom Style -->
+    <link rel="stylesheet" type="text/css" href={{url_for( 'static' , filename="css/style.css" )}}>
+    <link rel="stylesheet" type="text/css" href={{url_for( 'static' , filename="css/color/default.css" )}}
+        id="option-color">
+</head>
+
+<body>
+
+    <!-- Loader -->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner">Loading...</div>
+        </div>
+    </div>
+
+    <!-- Start Navbar -->
+    <nav class="navbar navbar-expand-lg custom-nav navbar-light fixed-top sticky">
+        <div class="container">
+            <a class="navbar-brand pt-0 logo" href="#">
+                <img src="{{url_for('static',filename = '/images/logo.png')}}" , alt="" class="img-fluid logo-light">
+                <img src="{{url_for('static',filename = 'images/logo-dark.png')}}" , alt="" class="img-fluid logo-dark">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="mdi mdi-menu"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto" id="main_nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#client">Client</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/posts">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+
 
     <!-- START HOME -->
     <section class="section header-bg-img h-100vh align-items-center d-flex clip-home" id="home">
@@ -147,7 +235,7 @@
                             <i class="mbri-database text-custom display-4"></i>
                         </div>
                         <div class="mt-4">
-                            <h5 class="mb-0">DevOps</h5>
+                            <h5 class="mb-0">Google Cloud & AWS OPs</h5>
                             <div class="services-title-border"></div>
                             <!-- <p class="text-muted mt-3">There are many variations of passages of but the majority have suffered alteration in some form.</p> -->
                         </div>
@@ -190,20 +278,6 @@
             <div class="row mt-4 pt-4">
                 <div class="col-lg-12">
                     <div id="owl-demo" class="owl-carousel">
-                        <div class="text-center testi_boxes mx-auto">
-                            <div class="tam_testi_icon text-custom">
-                                <i class="mbri-quote-left"></i>
-                            </div>
-                            <div class="mt-2">
-                                <div class="img_testi">
-                                    <img src="{{url_for('static',filename = 'images/client_images/8.png')}}" , alt=""
-                                        class="mx-auto img-thumbnail img-fluid d-block rounded-corner">
-                                </div>
-                                <!-- <p class="client_review fst-italic mt-4 text-center text-muted">" The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here."</p> -->
-                                <p class="client_name text-center mb-0 mt-4">- Financial Institution, <span class="fw-bold">The City Bank Limited
-                                        </span></p>
-                            </div>
-                        </div>
                         <div class="text-center testi_boxes mx-auto">
                             <div class="tam_testi_icon text-custom">
                                 <i class="mbri-quote-left"></i>
@@ -607,6 +681,29 @@
     </section>
     <!-- END CONTACT -->
 
+    <!--START FOOTER-->
+    <footer class="footer bg-light">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-md-12">
+                    <div class="text-center text-white footer-alt">
+                        <ul class="list-unstyled list-inline mb-0">
+                            <!-- <li class="list-inline-item"><a href="#"><i class="mdi mdi-facebook"></i></a></li> -->
+                            <li class="list-inline-item"><a href="https://www.linkedin.com/in/tajriyaan-chowdhury/"><i class="mdi mdi-linkedin"></i></a></li>
+                            <!-- <li class="list-inline-item"><a href="#"><i class="mdi mdi-pinterest"></i></a></li> -->
+                            <!-- <li class="list-inline-item"><a href="#"><i class="mdi mdi-twitter"></i></a></li> -->
+                        </ul>
+                        <p class="copyright_content mb-0 mt-3"> 2023 &copy; Tajriyaan Chowdhury.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--END FOOTER-->
+
+
+    <!-- Back To Top -->
+    <a href="#" class="back_top"> <i class="mdi mdi-chevron-up"> </i> </a>
 
     <!-- START SWITCHER -->
     <!-- <div id="color-switcher" style="left: 0px;">
@@ -640,5 +737,36 @@
     <!-- END SWITCHER -->
 
 
-   
-{% endblock content %}
+    <!--All Javascript -->
+    <script src={{url_for( 'static' , filename="js/bootstrap.bundle.min.js" )}}></script>
+    <script src={{url_for( 'static' , filename="js/jquery.min.js" )}}></script>
+
+    <!-- Text Type -->
+    <script src={{url_for( 'static' , filename="js/typed.js" )}}></script>
+
+    <!-- Owl Carousel -->
+    <script src={{url_for( 'static' , filename="js/owl.carousel.min.js" )}}></script>
+
+    <!-- Switcher Js -->
+    <script src={{url_for( 'static' , filename="js/switcher.js" )}}></script>
+
+    <!-- Work Filter -->
+    <script src={{url_for( 'static' , filename="js/isotope.js" )}}></script>
+
+    <!-- Magnific Popup Js -->
+    <script src={{url_for( 'static' , filename="js/jquery.magnific-popup.min.js" )}}></script>
+
+    <!-- Custom Js -->
+    <script src={{url_for( 'static' , filename="js/custom.js" )}}></script>
+    <script>
+        var typed = new Typed('.element', {
+            strings: ["Tajriyaan Chowdhury.", "A Data Professional.", "Always an Avid Learner.", "Sometimes A Philosopher.", "Mostly a Foodie.",],
+            typeSpeed: 120,
+            backSpeed: 60,
+            backDelay: 3000,
+            loop: true
+        });
+    </script>
+</body>
+
+</html>
